@@ -8,17 +8,17 @@ export const useWebStore: Function = defineStore('WebStore', {
             {
                 id: Math.floor((Math.random() * 10000) + 1),
                 image: '/newspaper.svg',
-                author: 'Joshua Curtey',
+                author: 'Victor B. Boulhavkh',
                 date: '25 Oct',
-                title: 'The Junior Developer\'s Dilemma',
-                information: 'We have seen students bother about their pcs and we have tried to help them out. Many of them have problems with their personal workstation and it is no good. I know there is more in them but with limited resources they can only do much'
+                title: 'The B Team',
+                info: 'We have seen students bother about their pcs and we have tried to help them out. Many of them have problems with their personal workstation and it is no good. I know there is more in them but with limited resources they can only do much'
             },
             {
                 id: Math.floor((Math.random() * 10000) + 1),
                 image: '/newspaper.svg',
-                author: 'Joshua Curtey',
+                author: 'Haeman Freedmond',
                 date: '25 Oct',
-                title: 'The Junior Developer\'s Dilemma',
+                title: 'Taking after the best, not witstanding',
                 info: 'We have seen students bother about their pcs and we have tried to help them out. Many of them have problems with their personal workstation and it is no good. I know there is more in them but with limited resources they can only do much'
             },
             {
@@ -32,9 +32,25 @@ export const useWebStore: Function = defineStore('WebStore', {
             {
                 id: Math.floor((Math.random() * 10000) + 1),
                 image: '/newspaper.svg',
-                author: 'Joshua Curtey',
+                author: 'Berner Seaman',
+                date: '27 Oct',
+                title: 'Taking a Senior Developer role',
+                info: 'Today we have alot of vibe coders and what do you know, you might be one. Many of them have problems with their personal workstation and it is no good. I know there is more in them but with limited resources they can only do much'
+            },
+            {
+                id: Math.floor((Math.random() * 10000) + 1),
+                image: '/newspaper.svg',
+                author: 'Victor B. Boulhavkh',
                 date: '25 Oct',
-                title: 'The Junior Developer\'s Dilemma',
+                title: 'The B Team',
+                info: 'We have seen students bother about their pcs and we have tried to help them out. Many of them have problems with their personal workstation and it is no good. I know there is more in them but with limited resources they can only do much'
+            },
+            {
+                id: Math.floor((Math.random() * 10000) + 1),
+                image: '/newspaper.svg',
+                author: 'Haeman Freedmond',
+                date: '25 Oct',
+                title: 'Taking after the best, not witstanding',
                 info: 'We have seen students bother about their pcs and we have tried to help them out. Many of them have problems with their personal workstation and it is no good. I know there is more in them but with limited resources they can only do much'
             }
         ]
