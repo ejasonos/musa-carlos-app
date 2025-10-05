@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite'
-import { resolve } from 'vue'
 import vue from '@vitejs/plugin-vue'
+// import { resolve } from 'vue'
 import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
@@ -9,9 +9,9 @@ export default defineConfig({
     vue(),
     tailwindcss()
   ],
-  resolve: {
-    alias: {
-      '@': '/src/assets'
-    }
-  }
+  // resolve: {
+  //   alias: {
+  //     '@': resolve(__dirname, '/src/assets')
+  //   }
+  // }
 })

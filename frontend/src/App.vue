@@ -1,15 +1,8 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <nav class="flex justify-center space-x-5">
-  <RouterLink to="/">Home</RouterLink>
-  <RouterLink to="/feed">Feed</RouterLink>
-  </nav><RouterView />
+  <RouterView class="xl:m-10 xl:rounded-xl xl:overflow-hidden xl:shadow-lg xl:shadow-grey-400" />
 </template>
 
 <style scoped>
-.router-link-active {
-  color: brown;
-}
 </style>
