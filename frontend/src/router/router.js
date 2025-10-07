@@ -6,7 +6,7 @@ import Signin from '../views/Signin.vue'
 import Contactus from '../views/Contactus.vue'
 import Tandc from '../views/Tandc.vue'
 
-export const router: Object = createRouter({
+export const router = createRouter({
     history: createWebHistory(),
     routes: [
         {path: '/', name: 'Home', component: Home},

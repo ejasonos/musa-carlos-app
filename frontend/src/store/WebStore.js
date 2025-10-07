@@ -1,9 +1,16 @@
 import { defineStore } from 'pinia'
 
-export const useWebStore: Function = defineStore('WebStore', {
+export const useWebStore = defineStore('WebStore', {
     state: () => ({
         name: 'Favour Ejakpevweoghene',
         logo: '/space-awesome.svg',
+        services: [
+            {
+                image: '',
+                title: '',
+                info: ''
+            }
+        ],
         news: [
             {
                 id: Math.floor((Math.random() * 10000) + 1),

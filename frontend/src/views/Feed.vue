@@ -1,7 +1,7 @@
-<script setup lang="ts">
+<script setup>
 import Impression from "../components/Impression.vue";
 import Home from "../views/Home.vue";
-import { useWebStore } from "../store/WebStore.ts";
+import { useWebStore } from "../store/WebStore.js";
 const webStore = useWebStore();
 </script>
 <template>
