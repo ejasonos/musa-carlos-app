@@ -9,7 +9,7 @@ const webStore = useWebStore();
     <nav class="flex flex-col space-y-1 p-2">
       <div class="flex space-x-1 w-fit items-center">
         <div class="h-10 w-10 rounded-full">
-          <img src="/space-awesome.svg" class="h-full w-full" />
+          <img src="/logo.png" class="h-full w-full" />
         </div>
         <p class="text-sm text-white">Username</p>
       </div>

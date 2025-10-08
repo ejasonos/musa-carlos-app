@@ -3,14 +3,8 @@ import { defineStore } from 'pinia'
 export const useWebStore = defineStore('WebStore', {
     state: () => ({
         name: 'Favour Ejakpevweoghene',
-        logo: '/space-awesome.svg',
-        services: [
-            {
-                image: '',
-                title: '',
-                info: ''
-            }
-        ],
+        logo: '/logo.png',
+        users: [],
         news: [
             {
                 id: Math.floor((Math.random() * 10000) + 1),
@@ -63,6 +57,27 @@ export const useWebStore = defineStore('WebStore', {
         ]
     }),
     getters: {
+        getUsersCount: (state) => state.users.length
+    },
+    actions: {
         // State functions go in here
+    async  fetchUsers () {
+            try {
+                const res = await fetch("http://localhost:3000/", {
+                    method: "GET",
+                    headers: { 
+                        "Content-Type": "application/json"
+                    }
+                });
+                if (!res.ok) throw new Error(`Fetch failed: ${res.status}`)
+                const data = await res.json()
+                this.users = Array.isArray(data) ? data : []
+                return this.users
+            } catch (err) {
+                console.error("fetchUsers error: ", err)
+                this.users = []
+                return []
+            }
+        }
     }
 })

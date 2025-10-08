@@ -1,14 +1,50 @@
-<script setup lang="ts">
+<script setup>
 import Home from "../views/Home.vue";
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
-let name: String;
-let faculty: String;
-let department: String;
-let email: String;
-let dob: String;
+const router = useRouter()
 
-const createUser = () => {
-  fetch("http://localhost:3000/createuser");
+let name = ref('')
+let username = ref('')
+let faculty = ref('')
+let department = ref('')
+let email = ref('')
+let password = ref('')
+
+const register = async () => {
+  try {
+    const res = await fetch("http://localhost:3000/api/v1/auth/register", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        name: name.value,
+        username: username.value,
+        faculty: faculty.value,
+        department: department.value,
+        email: email.value,
+        password: password.value
+      }),
+    });
+    
+    if (!res.ok) {
+      // handle non-2xx responses (show error in UI, etc.)
+      const errBody = await res.json().catch(() => ({}));
+      console.error("Login failed", errBody);
+      return;
+    }
+
+    const data = await res.json();
+
+    // optional: store token for auth (adjust field name according to your API)
+    if (data.token) localStorage.setItem("token", data.token);
+
+    // navigate to feed (use a named route if your router defines one)
+    router.push("/feed");
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
 };
 </script>
 <template>
@@ -18,31 +54,22 @@ const createUser = () => {
       <p class="text-lg text-center xl:text-left text-black xl:pl-20 font-bold">
         Create your account
       </p>
-      <form class="flex flex-col p-4 space-y-3" v-on:submit="createUser()">
+      <form class="flex flex-col p-4 space-y-3" method="POST" @submit.prevent="register">
         <label for="name" class="text-sm text-black font-semibold">Name</label>
         <input
           type="text"
           name="name"
           v-model="name"
           class="border-2 border-transparent border-b-blue-300 xl:w-1/2 focus:border-transparent focus:pb-1 focus:border-2 focus:border-b-blue-300 focus:outline-transparent"
+          required
         />
-        <label for="faculty" class="text-sm text-black font-semibold"
-          >Faculty</label
-        >
+        <label for="name" class="text-sm text-black font-semibold">Username</label>
         <input
           type="text"
-          name="faculty"
-          v-model="faculty"
+          name="username"
+          v-model="username"
           class="border-2 border-transparent border-b-blue-300 xl:w-1/2 focus:border-transparent focus:pb-1 focus:border-2 focus:border-b-blue-300 focus:outline-transparent"
-        />
-        <label for="department" class="text-sm text-black font-semibold"
-          >Department</label
-        >
-        <input
-          type="text"
-          name="department"
-          v-model="department"
-          class="border-2 border-transparent border-b-blue-300 xl:w-1/2 focus:border-transparent focus:pb-1 focus:border-2 focus:border-b-blue-300 focus:outline-transparent"
+          required
         />
         <label for="email" class="text-sm text-black font-semibold"
           >Email</label
@@ -52,15 +79,37 @@ const createUser = () => {
           name="email"
           v-model="email"
           class="border-2 border-transparent border-b-blue-300 xl:w-1/2 focus:border-transparent focus:pb-1 focus:border-2 focus:border-b-blue-300 focus:outline-transparent"
+          required
         />
-        <label for="dob" class="text-sm text-black font-semibold">DOB</label>
+        <label for="faculty" class="text-sm text-black font-semibold"
+          >Faculty</label
+        >
         <input
-          type="date"
-          v-model="dob"
+          type="text"
+          name="faculty"
+          v-model="faculty"
           class="border-2 border-transparent border-b-blue-300 xl:w-1/2 focus:border-transparent focus:pb-1 focus:border-2 focus:border-b-blue-300 focus:outline-transparent"
+          required
+        />
+        <label for="department" class="text-sm text-black font-semibold"
+          >Department</label
+        >
+        <input
+          type="text"
+          name="department"
+          v-model="department"
+          class="border-2 border-transparent border-b-blue-300 xl:w-1/2 focus:border-transparent focus:pb-1 focus:border-2 focus:border-b-blue-300 focus:outline-transparent"
+          required
+        />
+        <label for="password" class="text-sm text-black font-semibold">Password</label>
+        <input
+          type="password"
+          v-model="password"
+          class="border-2 border-transparent border-b-blue-300 xl:w-1/2 focus:border-transparent focus:pb-1 focus:border-2 focus:border-b-blue-300 focus:outline-transparent"
+          required
         />
         <div class="flex space-x-1 items-center">
-          <input type="checkbox" />
+          <input type="checkbox" required />
           <p class="text-sm text-black font-light">
             By signing up you agree to our
             <RouterLink class="font-semibold" to="/tandc"
