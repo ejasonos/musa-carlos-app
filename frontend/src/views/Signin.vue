@@ -2,6 +2,8 @@
 import Home from "../views/Home.vue";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { toast } from "vue3-toastify";
+// import "vue3-toastify/dist/index.css";
 
 const router = useRouter();
 
@@ -31,7 +33,15 @@ const login = async () => {
     if (data.token) localStorage.setItem("token", data.token);
 
     // navigate to feed (use a named route if your router defines one)
-    router.push("/feed");
+    router.push("/feed")
+
+    // Show success prompt
+    const notify = () => {
+      toast("Signin Successful !", {
+        autoClose: 5000,
+      }); // ToastOptions
+    }
+    notify()
   } catch (err) {
     console.error(err);
     throw err;

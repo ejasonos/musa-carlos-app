@@ -36,13 +36,21 @@ const register = async () => {
       return;
     }
 
-    const data = await res.json();
+    const data = await res.json()
 
     // optional: store token for auth (adjust field name according to your API)
     if (data.token) localStorage.setItem("token", data.token);
 
     // navigate to feed (use a named route if your router defines one)
     router.push("/feed");
+
+    // Show success prompt
+    const notify = () => {
+      toast("Registration Successful !", {
+        autoClose: 5000,
+      }); // ToastOptions
+    }
+    notify()
   } catch (err) {
     console.error(err);
     throw err;
