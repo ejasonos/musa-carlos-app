@@ -3,6 +3,8 @@ import Impression from "../components/Impression.vue";
 import Home from "../views/Home.vue";
 import { useWebStore } from "../store/WebStore.js";
 const webStore = useWebStore();
+
+
 </script>
 <template>
   <section class="flex bg-blue-600">

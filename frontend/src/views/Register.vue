@@ -1,56 +1,63 @@
 <script setup>
 import Home from "../views/Home.vue";
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 
-const router = useRouter()
+const router = useRouter();
 
-let name = ref('')
-let username = ref('')
-let faculty = ref('')
-let department = ref('')
-let email = ref('')
-let password = ref('')
+let name = ref("");
+let username = ref("");
+let faculty = ref("");
+let department = ref("");
+let email = ref("");
+let password = ref("");
 
 const register = async () => {
   try {
     const res = await fetch("http://localhost:3000/api/v1/auth/register", {
       method: "POST",
-      headers: {"Content-Type": "application/json"},
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         name: name.value,
         username: username.value,
         faculty: faculty.value,
         department: department.value,
         email: email.value,
-        password: password.value
+        password: password.value,
       }),
     });
-    
+
     if (!res.ok) {
       // handle non-2xx responses (show error in UI, etc.)
+      // Show success prompt
+      const notifyFailure = () => {
+        toast("Registration failed!", {
+          autoClose: 5000,
+        }); // ToastOptions
+      };
+      notifyFailure();
       const errBody = await res.json().catch(() => ({}));
       console.error("Login failed", errBody);
       return;
     }
 
-    const data = await res.json()
+    const data = await res.json();
 
     // optional: store token for auth (adjust field name according to your API)
     if (data.token) localStorage.setItem("token", data.token);
 
     // navigate to feed (use a named route if your router defines one)
-    router.push("/feed");
+    router.push("/feed")
 
     // Show success prompt
-    const notify = () => {
-      toast("Registration Successful !", {
+    const notifySuccess = () => {
+      toast("Registration Successful", {
         autoClose: 5000,
       }); // ToastOptions
-    }
-    notify()
+    };
+    notifySuccess();
   } catch (err) {
     console.error(err);
     throw err;
@@ -64,7 +71,11 @@ const register = async () => {
       <p class="text-lg text-center xl:text-left text-black xl:pl-20 font-bold">
         Create your account
       </p>
-      <form class="flex flex-col p-4 space-y-3" method="POST" @submit.prevent="register">
+      <form
+        class="flex flex-col p-4 space-y-3"
+        method="POST"
+        @submit.prevent="register"
+      >
         <label for="name" class="text-sm text-black font-semibold">Name</label>
         <input
           type="text"
@@ -73,7 +84,9 @@ const register = async () => {
           class="border-2 border-transparent border-b-blue-300 xl:w-1/2 focus:border-transparent focus:pb-1 focus:border-2 focus:border-b-blue-300 focus:outline-transparent"
           required
         />
-        <label for="name" class="text-sm text-black font-semibold">Username</label>
+        <label for="name" class="text-sm text-black font-semibold"
+          >Username</label
+        >
         <input
           type="text"
           name="username"
@@ -111,7 +124,9 @@ const register = async () => {
           class="border-2 border-transparent border-b-blue-300 xl:w-1/2 focus:border-transparent focus:pb-1 focus:border-2 focus:border-b-blue-300 focus:outline-transparent"
           required
         />
-        <label for="password" class="text-sm text-black font-semibold">Password</label>
+        <label for="password" class="text-sm text-black font-semibold"
+          >Password</label
+        >
         <input
           type="password"
           v-model="password"
@@ -128,7 +143,8 @@ const register = async () => {
           </p>
         </div>
         <div class="flex space-x-3">
-          <button type="submit"
+          <button
+            type="submit"
             class="px-4 py-1 rounded-full bg-blue-600 text-white delay-50 transition-all hover:bg-gradient-to-r hover:from-zinc-200 hover:to-blue-100 hover:text-blue-800"
           >
             Register

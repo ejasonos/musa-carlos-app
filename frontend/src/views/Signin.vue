@@ -3,7 +3,7 @@ import Home from "../views/Home.vue";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { toast } from "vue3-toastify";
-// import "vue3-toastify/dist/index.css";
+import "vue3-toastify/dist/index.css";
 
 const router = useRouter();
 
@@ -22,6 +22,13 @@ const login = async () => {
     if (!res.ok) {
       // handle non-2xx responses (show error in UI, etc.)
       const errBody = await res.json().catch(() => ({}));
+      // Show failure prompt
+      const notifyFailure = () => {
+        toast("Signin failed!", {
+          autoClose: 5000,
+        }); // ToastOptions
+      };
+      notifyFailure();
       console.error("Login failed", errBody);
       return;
     }
@@ -32,16 +39,17 @@ const login = async () => {
     // optional: store token for auth (adjust field name according to your API)
     if (data.token) localStorage.setItem("token", data.token);
 
-    // navigate to feed (use a named route if your router defines one)
-    router.push("/feed")
-
     // Show success prompt
-    const notify = () => {
-      toast("Signin Successful !", {
+    const notifySuccess = () => {
+      toast("Signin Successful", {
         autoClose: 5000,
       }); // ToastOptions
-    }
-    notify()
+    };
+    notifySuccess();
+
+    // navigate to feed (use a named route if your router defines one)
+    router.push("/feed");
+
   } catch (err) {
     console.error(err);
     throw err;
